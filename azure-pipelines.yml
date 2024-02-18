@@ -26,6 +26,6 @@ steps:
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'DevOps'
     location: 'East US'
-    templateLocation: 'https://github.com/dsahoo165/Templates/blob/main/deploymentTemplate.json'
-    csmFileLink: ''
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://github.com/dsahoo165/Templates/blob/main/deploymentTemplate.json'
     deploymentMode: 'Incremental'
