@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
       "containerGroupName": {
@@ -12,10 +12,17 @@
     },
     "variables": {
       "container1name": "dsahoologinapp",
-      "container1image": "testdkregistry.azurecr.io/dsahoologinapp:26",
-      "container2name": "loginapp",
-      "container2image": "testdkregistry.azurecr.io/loginapp:latest"
+       "container1image": "testdkregistry.azurecr.io/dsahoologinapp:26",
+       "container2name": "loginapp",
+       "container2image": "testdkregistry.azurecr.io/loginapp:latest"
     },
+    "imageRegistryCredentials": [
+        {
+            "server": "[parameters('imageRegistryLoginServer')]",
+            "username": "[parameters('imageRegistryUsername')]",
+            "password": "[parameters('imageRegistryPassword')]"
+        }
+    ],
     "resources": [
       {
         "name": "[parameters('containerGroupName')]",
@@ -35,8 +42,12 @@
                   }
                 },
                 "ports": [
-                  { "port": 80 },
-                  { "port": 8080 }
+                  {
+                    "port": 80
+                  },
+                  {
+                    "port": 8080
+                  }
                 ]
               }
             },
@@ -57,8 +68,14 @@
           "ipAddress": {
             "type": "Public",
             "ports": [
-              { "protocol": "tcp", "port": 80 },
-              { "protocol": "tcp", "port": 8080 }
+              {
+                "protocol": "tcp",
+                "port": 80
+              },
+              {
+                  "protocol": "tcp",
+                  "port": 8080
+              }
             ]
           }
         }
@@ -71,4 +88,3 @@
       }
     }
   }
-  
