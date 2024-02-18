@@ -27,5 +27,5 @@ steps:
     resourceGroupName: 'DevOps'
     location: 'East US'
     templateLocation: 'URL of the file'
-    csmFileLink: 'deploymentTemplate.json'
+    csmFileLink: 'https://github.com/dsahoo165/Templates/blob/main/deploymentTemplate.json'
     deploymentMode: 'Incremental'
