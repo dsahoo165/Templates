@@ -2,27 +2,41 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-      "containerGroupName": {
-        "type": "string",
-        "defaultValue": "myContainerGroup",
-        "metadata": {
-          "description": "Container Group name."
+        "imageRegistryLoginServer": {
+            "type": "string",
+            "defaultValue": "testdkregistry.azurecr.io",
+            "metadata": {
+                "description": "testdkregistry.azurecr.io"
+            }
+        },
+        "imageRegistryUsername": {
+            "type": "string",
+            "defaultValue": "testdkregistry",
+            "metadata": {
+                "description": "testdkregistry"
+            }
+        },
+        "imageRegistryPassword": {
+            "type": "string",
+            "defaultValue": "1y0It8GNBAhTsnpwc1dq8AZNc1w1Dgb5yh5rgxIt9H+ACRBro5JG",
+            "metadata": {
+                "description": "1y0It8GNBAhTsnpwc1dq8AZNc1w1Dgb5yh5rgxIt9H+ACRBro5JG"
+            }
+        },
+        "containerGroupName": {
+            "type": "string",
+            "defaultValue": "myContainerGroup",
+            "metadata": {
+                "description": "Container Group name."
+            }
         }
-      }
     },
     "variables": {
       "container1name": "dsahoologinapp",
        "container1image": "testdkregistry.azurecr.io/dsahoologinapp:26",
        "container2name": "loginapp",
-       "container2image": "testdkregistry.azurecr.io/loginapp:latest"
-    },
-    "imageRegistryCredentials": [
-        {
-            "server": "[parameters('imageRegistryLoginServer')]",
-            "username": "[parameters('imageRegistryUsername')]",
-            "password": "[parameters('imageRegistryPassword')]"
-        }
-    ],
+       "container2image": "testdkregistry.azurecr.io/loginapp:88"
+    },    
     "resources": [
       {
         "name": "[parameters('containerGroupName')]",
@@ -44,9 +58,6 @@
                 "ports": [
                   {
                     "port": 80
-                  },
-                  {
-                    "port": 8080
                   }
                 ]
               }
@@ -60,7 +71,12 @@
                     "cpu": 1,
                     "memoryInGb": 1.5
                   }
-                }
+                },
+                "ports": [
+                    {
+                      "port": 8081
+                    }
+                  ]
               }
             }
           ],
@@ -74,10 +90,17 @@
               },
               {
                   "protocol": "tcp",
-                  "port": 8080
+                  "port": 8081
               }
             ]
-          }
+          },
+          "imageRegistryCredentials": [
+            {
+                "server": "[parameters('imageRegistryLoginServer')]",
+                "username": "[parameters('imageRegistryUsername')]",
+                "password": "[parameters('imageRegistryPassword')]"
+            }
+        ]
         }
       }
     ],
