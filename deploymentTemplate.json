@@ -35,7 +35,9 @@
       "container1name": "dsahoologinapp",
        "container1image": "testdkregistry.azurecr.io/dsahoologinapp:26",
        "container2name": "loginapp",
-       "container2image": "testdkregistry.azurecr.io/loginapp:88"
+       "container2image": "testdkregistry.azurecr.io/loginapp:88",
+       "container1port": 8081,
+       "container2port": 8082
     },    
     "resources": [
       {
@@ -74,7 +76,7 @@
                 },
                 "ports": [
                     {
-                      "port": 8081
+                      "port": 80
                     }
                   ]
               }
@@ -86,11 +88,11 @@
             "ports": [
               {
                 "protocol": "tcp",
-                "port": 80
+               "port": "[variables('container1port')]"
               },
               {
                   "protocol": "tcp",
-                  "port": 8081
+                 "port": "[variables('container2port')]"
               }
             ]
           },
